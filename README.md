@@ -3,7 +3,8 @@
 ## Install
 
 1. `npm install`
-2. `npm run dev`
+2. Rename `pages/_google-maps-api-key.js` to `pages/google-maps-api-key.js` and insert your Google API Key or ask Asa for one.
+3. `npm run dev`
 
 ## NextJS Steps
 
