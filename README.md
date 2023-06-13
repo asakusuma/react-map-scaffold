@@ -8,7 +8,7 @@
 
 ## Exercises
 
-### Make the map bigger
+### 1. Make the map bigger
 
 1. Open up `pages/components/maps.js`
 2. Find the map dimensions variable and increase the size.
@@ -20,13 +20,32 @@ const containerStyle = {
 };
 ```
 
-### Choose a different map center point
+### 2. Choose a different map center point
 
 Find the map center variable and change the coordinates.
 
-### Choose a different map zoom level
+### 3. Choose a different map zoom level
 
 Find the map zoom variable and change the coordinates.
+
+### 4. Add Markers when you click the map
+
+Add the following code to `useCallback` `onLoad` callback, where the comment `// Do stuff with the map` is located.
+
+```JavaScript
+function addMarker(location, map) {
+    new google.maps.Marker({
+        position: location,
+        label: 'This is a label',
+        map: map,
+    });
+}
+google.maps.event.addListener(map, "click", (event) => {
+    addMarker(event.latLng, map);
+});
+```
+
+Now click a location on the map.
 
 ## Next Steps
 
