@@ -12,7 +12,7 @@ const center = {
   lng: -121.8872373
 };
 
-const zoomLevel = 9;
+const zoomLevel = 12;
 
 function MapComponent() {
   return <div>
