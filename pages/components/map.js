@@ -15,14 +15,21 @@ const center = {
 const zoomLevel = 12;
 
 function MapComponent() {
-  const [location, setLocation] = useState({
-    lat: 0,
-    lng: 0,
+  const [locations, setLocations] = useState([]);
+
+  const rows = locations.map((location) => {
+    return <li key={`${location.lat},${location.lng}`}>
+      {location.lat}, {location.lng}
+    </li>;
+  });
+  const markers = locations.map((location) => {
+    const key = `${location.lat}, ${location.lng}`;
+    return <Marker key={key} position={location} />;
   });
 
   const onClickMap = (event) => {
     const location = event.latLng.toJSON();
-    setLocation(location);
+    setLocations(locations.concat([location]));
   }
 
   return <div>
@@ -33,9 +40,10 @@ function MapComponent() {
         zoom={zoomLevel}
         onClick={onClickMap}
       >
-        <Marker position={location} />
+        {markers}
       </GoogleMap>
     </LoadScript>
+    <ul>{rows}</ul>
   </div>
 }
 
