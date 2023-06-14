@@ -28,24 +28,53 @@ Find the map center variable and change the coordinates.
 
 Find the map zoom variable and change the coordinates.
 
-### 4. Add Markers when you click the map
+### 4. Add a marker when you click the map
 
-Add the following code to `useCallback` `onLoad` callback, where the comment `// Do stuff with the map` is located.
+Add the following code at the top of the `MapComponent` function.
 
 ```JavaScript
-function addMarker(location, map) {
-    new google.maps.Marker({
-        position: location,
-        label: 'This is a label',
-        map: map,
-    });
-}
-google.maps.event.addListener(map, "click", (event) => {
-    addMarker(event.latLng, map);
+const [location, setLocation] = useState({
+  lat: 0,
+  lng: 0,
 });
+
+const onClickMap = (event) => {
+  const location = event.latLng.toJSON();
+  setLocation(location);
+}
+```
+
+Then add the following code inside the `<GoogleMap>` component:
+```JSX
+<Marker position={location} />
 ```
 
 Now click a location on the map.
+
+### 5. Keep a running list of markers and locations
+
+Replace the code you just added with:
+
+```JSX
+const [locations, setLocations] = useState([]);
+
+const rows = locations.map((location) => {
+  return <li key={`${location.lat},${location.lng}`}>
+    {location.lat}, {location.lng}
+  </li>;
+});
+const markers = locations.map((location) => {
+  const key = `${location.lat}, ${location.lng}`;
+  return <Marker key={key} position={location} />;
+});
+
+const onClickMap = (event) => {
+  const location = event.latLng.toJSON();
+  setLocations(locations.concat([location]));
+}
+```
+
+Now use the `markers` and `rows` variables to actually render the information.
 
 ## Next Steps
 
