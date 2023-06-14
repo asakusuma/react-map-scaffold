@@ -1,5 +1,5 @@
-import { memo, useCallback, useState } from 'react';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { memo, } from 'react';
+import { GoogleMap, LoadScript } from '@react-google-maps/api';
 import API_KEY from './../google-maps-api-key';
 
 const containerStyle = {
@@ -15,27 +15,16 @@ const center = {
 const zoomLevel = 9;
 
 function MapComponent() {
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: API_KEY
-  });
-
-  const [map, setMap] = useState(null);
-
-  const onUnmount = useCallback(function callback(map) {
-    setMap(null)
-  }, [])
-
-  const mapElement = isLoaded && <GoogleMap
-    mapContainerStyle={containerStyle}
-    center={center}
-    zoom={zoomLevel}
-    onUnmount={onUnmount}
-  >
-  </GoogleMap>;
-
   return <div>
-    {mapElement}
+    <LoadScript googleMapsApiKey={API_KEY} >
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={zoomLevel}
+      >
+        { /* Add Marker here */ }
+      </GoogleMap>
+    </LoadScript>
   </div>
 }
 
