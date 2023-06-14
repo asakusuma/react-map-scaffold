@@ -1,5 +1,5 @@
-import { memo, } from 'react';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+import { memo, useState } from 'react';
+import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
 import API_KEY from './../google-maps-api-key';
 
 const containerStyle = {
@@ -15,14 +15,25 @@ const center = {
 const zoomLevel = 12;
 
 function MapComponent() {
+  const [location, setLocation] = useState({
+    lat: 0,
+    lng: 0,
+  });
+
+  const onClickMap = (event) => {
+    const location = event.latLng.toJSON();
+    setLocation(location);
+  }
+
   return <div>
     <LoadScript googleMapsApiKey={API_KEY} >
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={zoomLevel}
+        onClick={onClickMap}
       >
-        { /* Add Marker here */ }
+        <Marker position={location} />
       </GoogleMap>
     </LoadScript>
   </div>
