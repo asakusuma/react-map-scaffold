@@ -29,4 +29,4 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-pages/google-maps-api-key.js
+# pages/google-maps-api-key.js
